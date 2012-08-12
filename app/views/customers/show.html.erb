@@ -1,0 +1,43 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>First name:</b>
+  <%= @customer.first_name %>
+</p>
+
+<p>
+  <b>Last name:</b>
+  <%= @customer.last_name %>
+</p>
+
+
+<h1> Add a new order here </h1>
+
+  <div>
+    <%= form_for(@order) do |f| %>
+		<%= f.hidden_field :customer_id %>
+      	<%= f.label :item, "Name of order:" %><br>
+      	<%= f.text_field :item %><br>
+	    <%= f.label :price %><br>
+   		<%= f.text_field :price %>
+  </div>
+      	<%= f.submit "Add order", class: "btn btn-large btn-primary" %>
+    <% end %>
+  </div>
+
+<h3> Here are the current orders for this customer: </h3>
+
+<ol>
+	<% @customer.orders.each do |order|  %>
+	<li>
+		<%= order.item %>
+		  -  <%= order.price %>
+			<%= link_to " x ", order_path(order), :method => :delete %>
+		<% end %>
+	</li>
+</ol>
+
+
+
+<%= link_to 'Edit', edit_customer_path(@customer) %> |
+<%= link_to 'Back', customers_path %>
